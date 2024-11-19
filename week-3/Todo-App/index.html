@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+</head>
+
+
+<body>
+<div style="display: flex;">
+    <input placeholder="Add your todo" type="text"></input>
+    <button onclick="addTodo()">Add todo</button>
+</div>
+
+</body>
+
+<script >
+    function deleteTodo(ctr){
+        const todo=document.getElementById(ctr);
+        todo.parentNode.removeChild(todo)
+    }
+
+    
+           let ctr=1
+    function addTodo(){
+        
+       const todoVal=document.querySelector("input").value;
+       console.log(todoVal)
+      
+      const divEle=document.createElement("div");
+      divEle.setAttribute('id',ctr);
+    
+      divEle.innerHTML="<div>" +todoVal+ "<button onclick='deleteTodo(" + ctr + ")'>Delete</button></div>"
+        ctr++;
+
+      document.querySelector("body").appendChild(divEle)
+
+    }
+</script>
+</html>
