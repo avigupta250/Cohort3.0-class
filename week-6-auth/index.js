@@ -15,6 +15,9 @@ const users=[];
 
 
 
+app.get("/",(req,res)=>{
+    res.sendFile(__dirname+'/public/index.html')
+})
 
 app.post("/signup",(req,res)=>{
      const {email,password}=req.body;
@@ -41,6 +44,7 @@ app.post("/signup",(req,res)=>{
 
 app.post("/signin",(req,res)=>{
     const {email,password}=req.body;
+    console.log(req.body)
 
     for(i=0;i<users.length;i++)
         {
@@ -76,13 +80,11 @@ app.get("/me",auth,(req,res)=>{
     // const decodedData=jwt.verify(token,JWT_SECRET);
     // res.json(decodedData);
     res.json({
-        message:"You are allowed to visit this route"
+        message:"You are allowed to visit this route",
+        user:req.email
     })
 })
 
-app.get("/",(req,res)=>{
-    res.send("Hiii there")
-})
 
 app.listen(PORT,()=>{
     console.log(`Server is up and running on ${PORT}`)

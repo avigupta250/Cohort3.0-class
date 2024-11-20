@@ -14,6 +14,7 @@ const auth=(req,res,next)=>{
     console.log(decodedData);
 
     if(email==decodedData){
+        req.email=decodedData;
         next();
     }
     else{
