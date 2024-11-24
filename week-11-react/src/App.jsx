@@ -7,6 +7,8 @@ import { useEffect } from 'react'
 import Counter from './Memo'
 
 import CounterApp from './redux/CounterApp'
+import Recoil from './Recoil/recoil'
+import RecoilSelector from './Recoil/RecoilSelector'
 
 
 
@@ -17,7 +19,9 @@ function App() {
 
   return (
     <>
-  <Counter/>
+    <RecoilSelector/>
+    {/* <Recoil/> */}
+  {/* <Counter/> */}
  
  {/* <CounterApp/> */}
 {/* <UseDebounce/> */}
