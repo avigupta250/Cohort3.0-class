@@ -5,13 +5,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const connectDb_1 = __importDefault(require("../config/connectDb"));
-const Auth_1 = require("../controllers/Auth");
+const userRoutes_1 = __importDefault(require("../routes/userRoutes"));
+const contentRoutes_1 = __importDefault(require("../routes/contentRoutes"));
+const auth_1 = __importDefault(require("../middlewares/auth"));
+const Link_1 = require("../controllers/Link");
 const app = (0, express_1.default)();
 const PORT = 3000;
 (0, connectDb_1.default)();
 app.use(express_1.default.json());
-app.post("/signup", Auth_1.signUp);
-app.post("/signin", Auth_1.sigin);
+console.log("Before Routs");
+app.use("/api/v1", userRoutes_1.default);
+app.use("/api/v1/", auth_1.default, contentRoutes_1.default);
+app.get("/api/v1/brain/:shareLink", Link_1.shareLink);
+app.post("/api/v1/brain/share", auth_1.default, Link_1.createLink);
+console.log("After all routes");
 app.get("/", (req, res) => {
     res.send("Hii there");
 });

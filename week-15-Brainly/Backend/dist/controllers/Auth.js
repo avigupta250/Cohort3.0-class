@@ -30,7 +30,7 @@ const reqbody = zod_1.z.object({
 const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const parseData = reqbody.safeParse(req.body);
-        console.log(parseData);
+        console.log("zod verification ", parseData);
         if (!parseData.success) {
             res.json({
                 message: parseData.error.errors[0].message
@@ -69,7 +69,6 @@ const sigin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { email, password } = req.body;
         const existingUser = yield User_1.default.findOne({ email });
-        console.log(existingUser);
         if (!existingUser) {
             res.status(400).json({
                 success: false,

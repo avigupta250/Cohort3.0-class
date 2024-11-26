@@ -22,7 +22,7 @@ export const signUp=async(req:Request,res:Response):Promise<void>=>{
      try{
       
          const parseData=reqbody.safeParse(req.body)
-         console.log(parseData)
+         console.log("zod verification ",parseData)
          if(!parseData.success){
           
             res.json({
@@ -73,7 +73,6 @@ export const sigin=async(req:Request,res:Response):Promise<void>=>{
       const {email,password}=req.body;
       const existingUser=await User.findOne({email});
 
-      console.log(existingUser)
       if(!existingUser){
         res.status(400).json({
             success:false,
@@ -118,7 +117,8 @@ export const sigin=async(req:Request,res:Response):Promise<void>=>{
          return
       }
 
-    const token= jwt.sign({id:existingUser._id.toString()},"Avi@250")
+    const token= jwt.sign({id:existingUser._id.toString()},"Avi@250");
+  
 
     res.status(200).json({
       success:true,
