@@ -30,12 +30,15 @@ function auth(req, res, next) {
             if (decoded) {
                 req.userId = decoded.id;
                 next();
+                return;
             }
             else {
                 res.status(403).json({
                     message: "Invalid Token"
                 });
+                return;
             }
+            // next();
         }
         catch (error) {
             res.json({
