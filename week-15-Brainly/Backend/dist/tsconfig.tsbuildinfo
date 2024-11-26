@@ -1,0 +1,1 @@
+{"root":["../config/connectdb.ts","../controllers/auth.ts","../models/user.ts","../src/index.ts"],"version":"5.7.2"}
