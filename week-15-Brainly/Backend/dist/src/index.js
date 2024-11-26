@@ -16,8 +16,8 @@ app.use(express_1.default.json());
 console.log("Before Routs");
 app.use("/api/v1", userRoutes_1.default);
 app.use("/api/v1/", auth_1.default, contentRoutes_1.default);
-app.post("/api/v1/brain/share", auth_1.default, Link_1.createLink);
 app.get("/api/v1/brain/:shareLink", Link_1.shareLink);
+app.post("/api/v1/brain/share", auth_1.default, Link_1.createLink);
 console.log("After all routes");
 app.get("/", (req, res) => {
     res.send("Hii there");

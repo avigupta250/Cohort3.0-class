@@ -16,12 +16,9 @@ app.use(Express.json())
 console.log("Before Routs")
 
 app.use("/api/v1",userRoutes);
-
-app.get("/api/v1/brain/:shareLink",shareLink)
-// above sharelink route no one is using auth  then its not automaticlly called
 app.use("/api/v1/",auth,contentRoutes)
-app.post("/api/v1/brain/share",auth,createLink)
 app.get("/api/v1/brain/:shareLink",shareLink)
+app.post("/api/v1/brain/share",auth,createLink)
 
 
 console.log("After all routes")
