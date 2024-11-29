@@ -3,6 +3,10 @@ import { Request,Response } from "express"
 import bcrypt from "bcrypt"
 import User from "../models/User"
 import jwt from "jsonwebtoken"
+import dotenv from "dotenv";
+
+dotenv.config();
+
 
 
 const reqbody=z.object({
@@ -116,8 +120,9 @@ export const sigin=async(req:Request,res:Response):Promise<void>=>{
          })
          return
       }
-
-    const token= jwt.sign({id:existingUser._id.toString()},"Avi@250");
+    const JWT_SECRET=process.env.JWT_SECRET
+    if(!JWT_SECRET)return
+    const token= jwt.sign({id:existingUser._id.toString()},JWT_SECRET);
   
 
     res.status(200).json({

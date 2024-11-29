@@ -16,7 +16,7 @@ export const createContent = async (
       userId: req.userId,
       tags: [],
     });
-   const content =await Content.find({userId:req.userId})
+   const content =await Content.find({userId:req.userId}).sort({ createdAt: -1 })
     res.json({
       message: "Content added",
       user: req.userId,
@@ -33,7 +33,9 @@ export const getAllContent = async (
     const userId = req.userId;
     const content = await Content.find({
       userId: userId,
-    }).populate("userId", ["email"]);
+    },
+    
+  ).populate("userId", ["email"]).sort({ createdAt: -1 });
 
     res.json({
       content,

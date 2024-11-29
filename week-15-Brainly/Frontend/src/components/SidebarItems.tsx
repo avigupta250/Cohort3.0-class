@@ -15,9 +15,14 @@ export function SidebarItems({ text, icon, activeFilter, setActiveFilter }: Side
 
   function filterHandler() {
     // Filter content and update state
-    const typeItem = allContent.filter((c) => c.type === text.toLowerCase());
+    if(text!=="My Brain")
+   { const typeItem = allContent.filter((c) => c.type === text.toLowerCase());
     setContent(typeItem);
-    setActiveFilter(text); // Set the clicked item as the active filter
+    setActiveFilter(text); }
+  else{
+    setContent(allContent)
+    setActiveFilter(text); 
+  }
   }
 
   // Determine if this item is the active filter
@@ -26,12 +31,12 @@ export function SidebarItems({ text, icon, activeFilter, setActiveFilter }: Side
   return (
     <div
       onClick={filterHandler}
-      className={`flex transition-all duration-200 mb-2 rounded-md cursor-pointer items-center ${
+      className={`flex transition-all duration-200 mb-2 mt-2 gap-3 rounded-md cursor-pointer items-center ${
         isActive ? "bg-blue-400 text-white" : "hover:bg-slate-200 text-gray"
       }`}
     >
-      <div className="p-2 text-[20px]">{icon}</div>
-      <div className="p-2">{text}</div>
+      <div className="p-1 text-[20px]">{icon}</div>
+      <div className="px-1 hidden md:block">{text}</div>
     </div>
   );
 }

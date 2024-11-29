@@ -2,18 +2,20 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 
 dotenv.config();
-// dotenv.config({ path: `${__dirname}/../.env` });
 
-// const MONGODB_URL="mongodb+srv://avinashkumar25:avinashkumar@cluster0.4wonrxg.mongodb.net/Brainly"
+
+
+
 const URL=process.env.MONGODB_URL
 
 
+if (!URL) {
+  throw new Error("MONGODB_URL is undefined. Please check your .env file.");
+}
 
-
-console.log(URL)
 
 const connectDb=async (): Promise<void> =>{
-  await  mongoose.connect("mongodb+srv://avinashkumar25:avinashkumar@cluster0.4wonrxg.mongodb.net/Brainly").then(()=>{
+  await  mongoose.connect(URL).then(()=>{
     console.log("Connection Established")
   }).catch((e)=>{
     console.log("COnnection Failed",e)

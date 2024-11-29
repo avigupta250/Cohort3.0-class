@@ -3,6 +3,9 @@ import jwt,{JwtPayload} from "jsonwebtoken"
 import { Response } from "express";
 import { AuthenticatedRequest } from "../types";
 import { NextFunction } from "express";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 
 async function auth(req:AuthenticatedRequest,res:Response,next:NextFunction):Promise<void>{
@@ -16,8 +19,9 @@ async function auth(req:AuthenticatedRequest,res:Response,next:NextFunction):Pro
             });
             return 
           }
-
-          const decoded = jwt.verify(token, "Avi@250") as { id: string };
+          const JWT_SECRET=process.env.JWT_SECRET
+          if(!JWT_SECRET)return
+          const decoded = jwt.verify(token, JWT_SECRET) as { id: string };
           console.log(decoded)
 
           if (decoded) {

@@ -3,10 +3,9 @@ import { apiConnector } from "../operations/apiconnector";
 import { endPoints } from "../operations/api";
 import toast from "react-hot-toast";
 
-export default function UnPublishBrain() {
+export default function UnPublishBrain({shareUrl}:any) {
   const [status, setStatus] = useState("false");
 
-  // Effect to check current status from API
   useEffect(() => {
     async function checkStatus() {
       try {
@@ -33,12 +32,12 @@ export default function UnPublishBrain() {
     }
 
     checkStatus();
-  }, []);
+  }, [shareUrl]);
 
   // Handle the toggle switch change (Publish / Unpublish)
   const handleToggle = async() => {
     try{
-        const response = await apiConnector({
+        await apiConnector({
             method: "post",
             url: endPoints.STATUS,
             bodyData:{
@@ -69,7 +68,7 @@ export default function UnPublishBrain() {
   };
 
   return (
-    <div className="flex items-center justify-center space-x-4 mt-8">
+    <div className="flex items-center justify-center space-x-4 h-3 ">
   
       
       {/* Publish / Unpublish toggle button */}

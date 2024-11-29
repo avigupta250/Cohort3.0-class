@@ -24,9 +24,10 @@ const defaultStyles=" gap-2 justify-center items-center  flex "
 
 export const Button=(props:ButtonProps)=>{
 
-    return <button onClick={props.onClick} className= {`${variantStyles[props.variant]  } ${sizeStyles[props.size]} flex justify-center items-center   `}>
+    return <button onClick={props.onClick} className= {`${variantStyles[props.variant]  } ${sizeStyles[props.size]}  flex justify-center  items-center   `}>
         <div className={`${defaultStyles}` }>
-       {props.startIcon?<div className="">{props.startIcon}</div>:null}{props.text}{props.endIcon}
+       {props.startIcon?<div className="">{props.startIcon}</div>:null}
+      <div className="hidden md:block  "> {props.text}{props.endIcon}</div>
        </div>
         </button>
 }

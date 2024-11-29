@@ -32,9 +32,9 @@ export function Card(props: CardProps) {
 
                 </div> : 
                 <div className="h-[200px] overflow-y-scroll">
-                    <blockquote className="twitter-tweet">
+                    {/* <blockquote className="twitter-tweet">
                         <a href={props.link}></a>
-                    </blockquote>
+                    </blockquote> */}
                 </div>
             }
 
