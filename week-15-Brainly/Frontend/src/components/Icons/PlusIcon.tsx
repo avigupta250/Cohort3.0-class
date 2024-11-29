@@ -1,4 +1,4 @@
-import { IconProps, iconSizeVariants } from "."
+import { IconProps, iconSizeVariants } from "./index"
 
 
 

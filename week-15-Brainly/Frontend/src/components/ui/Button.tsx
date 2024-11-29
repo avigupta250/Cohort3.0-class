@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-
+import { FaShare } from "react-icons/fa";
 
 interface ButtonProps{
     variant :"primary" |"secondary";
@@ -24,7 +24,7 @@ const defaultStyles=" gap-2 justify-center items-center  flex "
 
 export const Button=(props:ButtonProps)=>{
 
-    return <button className= {`${variantStyles[props.variant]  } ${sizeStyles[props.size]} flex justify-center items-center   `}>
+    return <button onClick={props.onClick} className= {`${variantStyles[props.variant]  } ${sizeStyles[props.size]} flex justify-center items-center   `}>
         <div className={`${defaultStyles}` }>
        {props.startIcon?<div className="">{props.startIcon}</div>:null}{props.text}{props.endIcon}
        </div>

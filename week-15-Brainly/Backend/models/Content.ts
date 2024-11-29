@@ -8,7 +8,7 @@ const ContentSchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ["image", "videp", "article", "audio"],
+      enum: ["image", "videp", "article", "audio","youtube","twitter"],
       required: true,
     },
     tags: [

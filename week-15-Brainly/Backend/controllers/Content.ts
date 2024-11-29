@@ -16,10 +16,11 @@ export const createContent = async (
       userId: req.userId,
       tags: [],
     });
-
+   const content =await Content.find({userId:req.userId})
     res.json({
       message: "Content added",
       user: req.userId,
+      userContent:content
     });
   } catch (error) {}
 };

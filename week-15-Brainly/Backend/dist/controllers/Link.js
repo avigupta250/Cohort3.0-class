@@ -9,44 +9,34 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.shareLink = exports.createLink = void 0;
+exports.checkStatus = exports.shareLink = exports.createLink = void 0;
 const uuid_1 = require("uuid");
 const Link_1 = require("../models/Link");
 const Content_1 = require("../models/Content");
 const createLink = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const share = req.body.share;
-        if (share) {
-            const existingLink = yield Link_1.Link.findOne({
-                userId: req.userId
-            });
-            if (existingLink) {
-                res.json({
-                    hashId: existingLink.hash
-                });
-            }
-            const randomUUID = (0, uuid_1.v4)();
-            console.log(randomUUID);
-            yield Link_1.Link.create({
-                hash: randomUUID,
-                userId: req.userId
-            });
+        const existingLink = yield Link_1.Link.findOne({
+            userId: req.userId,
+        });
+        if (existingLink) {
             res.json({
-                hash: randomUUID,
-                user: req.userId
+                hash: existingLink.hash,
             });
+            return;
         }
-        else {
-            yield Link_1.Link.deleteOne({
-                userId: req.userId
-            });
-            res.json({
-                message: "Removed link"
-            });
-        }
+        const randomUUID = (0, uuid_1.v4)();
+        console.log(randomUUID);
+        yield Link_1.Link.create({
+            hash: randomUUID,
+            userId: req.userId,
+            live: "true",
+        });
+        res.json({
+            hash: randomUUID,
+            user: req.userId,
+        });
     }
-    catch (err) {
-    }
+    catch (err) { }
 });
 exports.createLink = createLink;
 const shareLink = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -58,18 +48,56 @@ const shareLink = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         console.log("Link", link);
         if (!link) {
             res.status(411).json({
-                message: "Sorry incorrect input"
+                message: "Sorry incorrect input",
             });
             return;
         }
         const content = yield Content_1.Content.find({
-            userId: link === null || link === void 0 ? void 0 : link.userId
-        }).populate("userId");
+            userId: link === null || link === void 0 ? void 0 : link.userId,
+        }).populate("userId", "email");
         res.json({
-            content
+            content,
         });
     }
     catch (err) {
+        res.json({
+            message: err,
+        });
     }
 });
 exports.shareLink = shareLink;
+const checkStatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userId = req.userId;
+        console.log("From Chechk status");
+        if (req.body.unLive) {
+            const link = yield Link_1.Link.findOneAndDelete({ userId: userId });
+            res.json({
+                link
+            });
+            return;
+        }
+        else {
+            const link = yield Link_1.Link.find({
+                userId: userId,
+            });
+            if (!link) {
+                res.json({
+                    message: "link not found",
+                });
+                return;
+            }
+            res.json({
+                message: "link found",
+                link,
+            });
+        }
+        return;
+    }
+    catch (err) {
+        res.json({
+            message: err,
+        });
+    }
+});
+exports.checkStatus = checkStatus;

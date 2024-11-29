@@ -21,9 +21,11 @@ const createContent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             userId: req.userId,
             tags: [],
         });
+        const content = yield Content_1.Content.find({ userId: req.userId });
         res.json({
             message: "Content added",
             user: req.userId,
+            userContent: content
         });
     }
     catch (error) { }

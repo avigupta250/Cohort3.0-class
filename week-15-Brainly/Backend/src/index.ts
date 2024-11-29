@@ -4,24 +4,23 @@ import userRoutes from "../routes/userRoutes"
 import contentRoutes from "../routes/contentRoutes"
 import linkRoutes from "../routes/linkRoutes"
 import auth from "../middlewares/auth"
-import { createLink,shareLink } from "../controllers/Link";
-
+import { checkStatus, createLink,shareLink } from "../controllers/Link";
+import cors from "cors"
 const app=Express();
-
+app.use(cors())
 const PORT=3000;
 
 connectDb();
 app.use(Express.json())
 
-console.log("Before Routs")
 
+app.get("/api/v1/brain/:shareLink",shareLink)
 app.use("/api/v1",userRoutes);
 app.use("/api/v1/",auth,contentRoutes)
-app.get("/api/v1/brain/:shareLink",shareLink)
+
+app.post("/api/v1/status",checkStatus)
 app.post("/api/v1/brain/share",auth,createLink)
 
-
-console.log("After all routes")
 
 
 

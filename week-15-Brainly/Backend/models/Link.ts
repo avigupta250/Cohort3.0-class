@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
 
 
+
 const LinkSchema=new mongoose.Schema({
     hash:{
         type:String,
-        require:true
+        required:true
     },
 
     userId:{
@@ -14,6 +15,10 @@ const LinkSchema=new mongoose.Schema({
             required:true,
             unique:true
           
+    },
+    live:{
+       type: String,
+       default:"false"
     }
 })
 
