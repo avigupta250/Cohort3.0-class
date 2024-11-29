@@ -15,12 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-// dotenv.config({ path: `${__dirname}/../.env` });
-// const MONGODB_URL="mongodb+srv://avinashkumar25:avinashkumar@cluster0.4wonrxg.mongodb.net/Brainly"
 const URL = process.env.MONGODB_URL;
-console.log(URL);
+if (!URL) {
+    throw new Error("MONGODB_URL is undefined. Please check your .env file.");
+}
+console.log("URL", process.env.MONGODB_URL);
 const connectDb = () => __awaiter(void 0, void 0, void 0, function* () {
-    yield mongoose_1.default.connect("mongodb+srv://avinashkumar25:avinashkumar@cluster0.4wonrxg.mongodb.net/Brainly").then(() => {
+    yield mongoose_1.default.connect(URL).then(() => {
         console.log("Connection Established");
     }).catch((e) => {
         console.log("COnnection Failed", e);

@@ -17,6 +17,8 @@ const zod_1 = require("zod");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const User_1 = __importDefault(require("../models/User"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const reqbody = zod_1.z.object({
     email: zod_1.z.string().email(),
     password: zod_1.z.string()
@@ -99,7 +101,10 @@ const sigin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             });
             return;
         }
-        const token = jsonwebtoken_1.default.sign({ id: existingUser._id.toString() }, "Avi@250");
+        const JWT_SECRET = process.env.JWT_SECRET;
+        if (!JWT_SECRET)
+            return;
+        const token = jsonwebtoken_1.default.sign({ id: existingUser._id.toString() }, JWT_SECRET);
         res.status(200).json({
             success: true,
             message: "User logged in",

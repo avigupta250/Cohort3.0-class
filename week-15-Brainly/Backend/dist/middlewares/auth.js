@@ -13,6 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 function auth(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -25,7 +27,10 @@ function auth(req, res, next) {
                 });
                 return;
             }
-            const decoded = jsonwebtoken_1.default.verify(token, "Avi@250");
+            const JWT_SECRET = process.env.JWT_SECRET;
+            if (!JWT_SECRET)
+                return;
+            const decoded = jsonwebtoken_1.default.verify(token, JWT_SECRET);
             console.log(decoded);
             if (decoded) {
                 req.userId = decoded.id;

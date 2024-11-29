@@ -21,7 +21,7 @@ const createContent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             userId: req.userId,
             tags: [],
         });
-        const content = yield Content_1.Content.find({ userId: req.userId });
+        const content = yield Content_1.Content.find({ userId: req.userId }).sort({ createdAt: -1 });
         res.json({
             message: "Content added",
             user: req.userId,
@@ -36,7 +36,7 @@ const getAllContent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         const userId = req.userId;
         const content = yield Content_1.Content.find({
             userId: userId,
-        }).populate("userId", ["email"]);
+        }).populate("userId", ["email"]).sort({ createdAt: -1 });
         res.json({
             content,
         });
