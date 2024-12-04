@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@types/axios": "^0.14.4",
+    "@types/dotenv": "^8.2.3",
     "axios": "^1.7.8",
+    "dotenv": "^16.4.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.53.2",
@@ -22,6 +24,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",
+    "@types/node": "^22.10.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.4",

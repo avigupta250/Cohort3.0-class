@@ -19,7 +19,6 @@ const URL = process.env.MONGODB_URL;
 if (!URL) {
     throw new Error("MONGODB_URL is undefined. Please check your .env file.");
 }
-console.log("URL", process.env.MONGODB_URL);
 const connectDb = () => __awaiter(void 0, void 0, void 0, function* () {
     yield mongoose_1.default.connect(URL).then(() => {
         console.log("Connection Established");
