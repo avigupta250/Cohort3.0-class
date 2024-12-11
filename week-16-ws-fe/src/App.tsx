@@ -10,7 +10,10 @@ const inputRef=useRef();
 
 // const [socket, setSocket] = useState<WebSocket | null>(null);
 
-const {send}=useSocket({url:'ws://localhost:8080'})
+const {send,messages}=useSocket({
+  url:'ws://localhost:8080',
+
+})
 
   function sendMessage(){
     // @ts-ignore
@@ -19,21 +22,20 @@ const {send}=useSocket({url:'ws://localhost:8080'})
       
   }
 
-  // useEffect(()=>{
-  //   const ws = new WebSocket("ws://localhost:8080");
-  //   setSocket(ws);
-
-  //   ws.onmessage = (ev) => {
-  //     console.log('Message received:', ev.data);
-  //   }
-  // },[])
-
   return (
     <>
      <div>
-     
+      <div style={{display:"flex", padding:"2px", width:"300px",height:"300px" ,background:"black",color:"black"}}>
+        {/* {messages?.map((m,index)=>(
+          
+          <div style={{background:"white",display:"flex",height:"20px",padding:"2px", margin:"10px",borderRadius:"2px"}} key={index}>{m}</div>
+        ))} */}
+
+      </div>
+      <div>
       <input ref={inputRef} type='text' placeholder='Enter Your Message' />
       <button onClick={sendMessage}>Send</button>
+      </div>
      </div>
     </>
   )

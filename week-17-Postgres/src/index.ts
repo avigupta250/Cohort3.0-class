@@ -3,7 +3,6 @@ import express from "express"
 
 
 
-const pgClient= new Client("");
 const app=express();
 app.use(express.json())
 const pgClient2=new Client({
@@ -34,7 +33,7 @@ app.post("/signup",async(req,res)=>{
           message:"User created"
       })
  }catch(err){
-
+// 
  }
 })
 

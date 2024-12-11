@@ -17,14 +17,7 @@ const express_1 = __importDefault(require("express"));
 const pgClient = new pg_1.Client("postgresql://neondb_owner:6eZUw0Thilqz@ep-small-butterfly-a5yd2pc4.us-east-2.aws.neon.tech/neondb?sslmode=require");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-const pgClient2 = new pg_1.Client({
-    user: "neondb_owner",
-    password: "6eZUw0Thilqz",
-    port: 5432,
-    host: "ep-small-butterfly-a5yd2pc4.us-east-2.aws.neon.tech",
-    database: "neondb",
-    ssl: true
-});
+const pgClient2 = new pg_1.Client({});
 pgClient.connect();
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -38,7 +31,7 @@ app.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const username = req.body.username;
         const email = req.body.email;
         const password = req.body.password;
-        const response = yield pgClient.query(`INSERT INTO users (username,email,password) VALUES ('${username}','${email}','${password}');DELETE * from users`);
+        const response = yield pgClient.query(`INSERT INTO users (username,email,password) VALUES ('${username}','${email}','${password}');`);
         console.log(response);
         res.json({
             message: "User created"
