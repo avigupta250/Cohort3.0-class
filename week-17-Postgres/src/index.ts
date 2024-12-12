@@ -3,6 +3,7 @@ import express from "express"
 
 
 
+const pgClient= new Client("postgresql://neondb_owner:small-butterfly-a5yd2pc4.us-east-2.aws.neon.tech/neondb?sslmode=require");
 const app=express();
 app.use(express.json())
 const pgClient2=new Client({

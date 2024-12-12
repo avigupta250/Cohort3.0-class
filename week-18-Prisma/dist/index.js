@@ -1,2 +1,45 @@
 "use strict";
-console.log("hii");
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const client_1 = require("@prisma/client");
+const express_1 = __importDefault(require("express"));
+const app = (0, express_1.default)();
+app.use(express_1.default.json());
+const PORT = 3000;
+const Client = new client_1.PrismaClient();
+app.post("/user", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { username, password, age, city } = req.body;
+    const response = yield Client.user.create({
+        data: {
+            username,
+            password,
+            age,
+            city,
+        }
+    });
+    res.json({
+        success: true,
+        message: "User Created Succesfully",
+        data: response
+    });
+}));
+app.post("todo", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { title, desc, us };
+}));
+app.get("/", (req, res) => {
+    res.send("Hello form server");
+});
+app.listen(PORT, () => {
+    console.log(`App is listening on ${PORT}`);
+});
