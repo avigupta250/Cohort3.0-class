@@ -1,8 +1,8 @@
-export default function Layout({children}){
+export default function Layout({ children }:any) {
 
 
     return <div>
-        <div className="bg-white h-5 w-full">heloo</div>
+        <div className="bg-black h-5 w-full">heloo</div>
         {children}
     </div>
 }

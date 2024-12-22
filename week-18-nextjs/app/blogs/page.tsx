@@ -11,7 +11,7 @@ export default async function Blogs() {
     return <div>
         <h1> recoil , blogs from the best platform </h1>
         <div>
-    {data.map((todo,index)=> (
+    {data.map((todo:any,index:any)=> (
             <div key={index}>
                 {JSON.stringify(todo)}
             </div>

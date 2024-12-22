@@ -19,8 +19,8 @@ function App() {
 
   return (
     <>
-    <RecoilSelector/>
-    {/* <Recoil/> */}
+    {/* <RecoilSelector/> */}
+    <Recoil/>
   {/* <Counter/> */}
  
  {/* <CounterApp/> */}
