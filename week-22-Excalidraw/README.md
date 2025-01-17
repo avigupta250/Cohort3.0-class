@@ -1,4 +1,4 @@
-1.pnpm i 
+1. pnpm i 
 2. Delte docs appp
 3. Initialzed package.json in both http-server and ws-backend ...npm init -y.
 4. added tsconfig.json and "extends":"@repo/typescript-config/base.json" in both http and ws
@@ -13,4 +13,11 @@
   8. Update the turbo-config in both the projects(Optional){todo}
   9. Initiaze a http server , initialize a websocket server
   10. pnpm add express @types/express in http and pnpm add ws @types/ws in we-backend
+  11. Write the signup, signin ,create-room endpoint
+  12. write the middlewares that decode the token and gate the create-room ep
   
+  13. Decode the token in the websokcet server as well .send the token to the websockets server in query param for now
+  
+
+  14. Create a db package
+  15. Using the db package in http-layer
