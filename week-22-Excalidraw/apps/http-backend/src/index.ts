@@ -1,36 +1,43 @@
 import express from "express";
-import  jwt  from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { middleware } from "./middlewares";
 
-const app=express();
-export const JWT_SECRET="123"
-app.get("/",(req,res)=>{
-res.send("Hii there")
-})
+import { JWT_SECRET } from "@repo/backend-common/config";
+import { CreateUserSchema } from "@repo/common/types";
+const app = express();
 
-app.post("/signup",(req,res)=>{
+app.get("/", (req, res) => {
+  res.send("Hii there");
+});
 
-})
+app.post("/signup", (req, res) => {
+    const data = CreateUserSchema.safeParse(req.body);
+    if(!data.success){
+         res.json({
+            messgae:"Incorrect Input"
+        })
 
-app.post("/sigin",(req,res)=>{
+        return;
+    }
+});
 
+app.post("/sigin", (req, res) => {
+  const userId = 1;
+  const token = jwt.sign(
+    {
+      userId,
+    },
+    JWT_SECRET
+  );
 
-    const userId=1;
-   const token= jwt.sign({
-            userId
-    },JWT_SECRET)
+  res.json({
+    token,
+  });
+});
 
-    res.json({
-        token
-    })
-
-})
-
-app.post("/room",middleware,(req,res)=>{
-
-    res.json({
-        roomId:123
-    })
-
-})
+app.post("/room", middleware, (req, res) => {
+  res.json({
+    roomId: 123,
+  });
+});
 app.listen(5000);

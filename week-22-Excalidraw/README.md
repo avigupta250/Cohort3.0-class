@@ -21,3 +21,6 @@
 
   14. Create a db package
   15. Using the db package in http-layer
+  16. Add a common package where we add the zod schema and the JWT_SECRET
+
+  1:50
