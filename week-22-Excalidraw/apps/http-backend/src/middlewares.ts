@@ -9,6 +9,8 @@ export function middleware(req:Request,res:Response,next:NextFunction){
     if(decoded){
     //    @ts-ignore
         req.userId=decoded.userId;
+        //    @ts-ignore
+        console.log(req.userId);
         next();
 
     }else{
