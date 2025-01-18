@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { middleware } from "./middlewares";
 
 import { JWT_SECRET } from "@repo/backend-common/config";
-import { CreateUserSchema } from "@repo/common/types";
+import { CreateUserSchema,SigninSchema,CreateRoomSchema } from "@repo/common/types";
 const app = express();
 
 app.get("/", (req, res) => {
@@ -22,6 +22,14 @@ app.post("/signup", (req, res) => {
 });
 
 app.post("/sigin", (req, res) => {
+  const data = SigninSchema.safeParse(req.body);
+  if(!data.success){
+       res.json({
+          messgae:"Incorrect Input"
+      })
+
+      return;
+  }
   const userId = 1;
   const token = jwt.sign(
     {
@@ -36,6 +44,14 @@ app.post("/sigin", (req, res) => {
 });
 
 app.post("/room", middleware, (req, res) => {
+  const data = CreateRoomSchema .safeParse(req.body);
+  if(!data.success){
+       res.json({
+          messgae:"Incorrect Input"
+      })
+
+      return;
+  }
   res.json({
     roomId: 123,
   });

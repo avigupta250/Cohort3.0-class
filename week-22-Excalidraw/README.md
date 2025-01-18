@@ -17,10 +17,11 @@
   12. write the middlewares that decode the token and gate the create-room ep
   
   13. Decode the token in the websokcet server as well .send the token to the websockets server in query param for now
+  14. Add a common package where we add the zod schema and the JWT_SECRET
+
+  15. Create a db package
+  16. Using the db package in http-layer
+  17. Defining the schema in shcema.prisma
+  18. Complete the http Backend
   
 
-  14. Create a db package
-  15. Using the db package in http-layer
-  16. Add a common package where we add the zod schema and the JWT_SECRET
-
-  1:50
