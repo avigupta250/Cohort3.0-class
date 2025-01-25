@@ -1,6 +1,7 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import { middleware } from "./middlewares";
+import cors from "cors"
 
 import { JWT_SECRET } from "@repo/backend-common/config";
 import {
@@ -11,6 +12,7 @@ import {
 import { prismaClient } from "@repo/db/client";
 const app = express();
 app.use(express.json());
+app.use(cors())
 
 app.get("/", (req, res) => {
   res.send("Hii there");
