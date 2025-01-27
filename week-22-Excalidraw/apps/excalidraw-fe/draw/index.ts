@@ -2,7 +2,7 @@ import { HTTP_BACKEND } from "@/config";
 import axios from "axios";
 
 type Shape =
-  | {
+   {
       type: "rect";
       x: number;
       y: number;
@@ -14,7 +14,14 @@ type Shape =
       centerX: number;
       centerY: number;
       radius: number;
-    };
+    }|
+    {
+      type:"pencil",
+      startX:number,
+      startY:number,
+      endX:number,
+      endY:number
+    }
 export async function InitDraw(canvas: HTMLCanvasElement, roomId: string,socket:WebSocket) {
   const ctx = canvas.getContext("2d");
 
@@ -49,15 +56,33 @@ socket.onmessage=(event)=>{
     clicked = false;
     const width = e.clientX - startX;
     const height = e.clientY - startY;
-    const shape:Shape={
-      type: "rect",
-      x: startX,
-      y: startY,
-      width,
-      height,
+     // @ts-ignore
+     const selectedTool=window.selectedTool;
+     let shape:Shape|null=null;
+    if(selectedTool==="rect"){
+      shape={
+      
+        type: "rect",
+        x: startX,
+        y: startY,
+        width,
+        height,
+      }
+      
+    }else if(selectedTool==="circle"){
+      const radius=Math.abs(Math.max(width,height)/2)
+       shape={
+      
+        type: "circle",
+        radius:radius,
+        centerX:startX+radius,
+        centerY:startY+radius
+      }
+    
     }
 
-    existingShapes.push(shape);
+   if(!shape)return ;
+   existingShapes.push(shape)
     socket.send(JSON.stringify({
       type:"chat",
       message:JSON.stringify({
@@ -75,7 +100,22 @@ socket.onmessage=(event)=>{
       const height = e.clientY - startY;
       clearCanvas(existingShapes, canvas, ctx);
       ctx.strokeStyle = "rgba(255,255,255)";
-      ctx.strokeRect(startX, startY, width, height);
+      // @ts-ignore
+      const selectedTool=window.selectedTool;
+      if(selectedTool==="rect"){
+        ctx.strokeRect(startX, startY, width, height);
+      }else if(selectedTool==="circle"){
+        const radius=Math.abs((Math.max(width,height)/2));
+        const centerX=startX+radius;
+        const centerY=startY+radius;
+        
+        ctx.beginPath();
+        ctx.arc(centerX,centerY,radius,0,Math.PI*2);
+        ctx.stroke();
+        ctx.closePath();
+
+      }
+     
     }
   });
 }
@@ -92,6 +132,11 @@ function clearCanvas(
     if (shape.type === "rect") {
       ctx.strokeStyle = "rgba(255,255,255)";
       ctx.strokeRect(shape.x, shape.y, shape.width, shape.height);
+    }else if(shape.type==="circle"){
+      ctx.beginPath();
+      ctx.arc(shape.centerX,shape.centerY,shape.radius,0,Math.PI*2);
+      ctx.stroke();
+      ctx.closePath();
     }
   });
 }
